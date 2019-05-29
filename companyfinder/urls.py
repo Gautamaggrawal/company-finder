@@ -25,14 +25,18 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
 
-from main.views import IndexPageView,comp	
+from main.views import IndexPageView,comp,uploadimg,CompanyDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("uploadimage/",uploadimg),
+    path('getcompanydetails/<int:pk>', login_required(CompanyDetailView.as_view(),login_url='/login/')),
+
 
     path('', IndexPageView.as_view(), name='index'),
-    path('q/', comp.as_view(), name='quiz'),
+    path('profile/', comp.as_view(), name='profile'),
 
     path('accounts/', include('main.urls')), 
 ]

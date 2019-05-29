@@ -1,0 +1,58 @@
+{% extends 'layouts/default/page.html' %}
+{% load hitcount_tags %}
+
+{% load i18n %}
+
+{% block content %}
+<style type="text/css">
+	.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img class="" src="/media/{{company.logo}}" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{company.name}}</h4>
+                        <p class="card-text">{{company.address}}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"></small>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="card card-1 col-md-6 text-md-center" id="card1">
+        <table class="table table-hover">
+  <tbody>
+    <tr>
+      <td><span class="bold">Address</span></td>
+      <td colspan="2">{{company.address}}</td>
+    </tr>
+        <tr>
+      <td><span class="bold">Hit counts</span></td>
+      <td colspan="2">{{ hitcount.total_hits }}</td> 
+    </tr>
+     <tr>
+      <td><span class="bold">Numbers of Users Online</span></td>
+      <td colspan="2">{{ request.online_now.count }}</td> 
+    </tr>
+
+
+
+
+
+  </tbody>
+</table>
+        </div>
+</div>
+
+
+{% endblock %}

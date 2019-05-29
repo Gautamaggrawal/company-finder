@@ -13,7 +13,7 @@ class UserProfile(models.Model):
     user   = models.OneToOneField(User,on_delete=models.CASCADE)
     avatar = models.ImageField(default='/happyprofile.jpg')
     job=models.CharField(max_length=100)
-    company=models.OneToOneField(Company,on_delete=models.SET_NULL,null=True)
+    company=models.ForeignKey(Company,on_delete=models.SET_NULL,null=True)
 
     def __str__(self):
     	return self.user.username

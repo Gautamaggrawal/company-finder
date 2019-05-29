@@ -23,14 +23,15 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView
 from django.contrib.auth.models import User
-
+from .models import *
+from .forms import *
 
 
 class LoginView(FormView):
     """
     Provides the ability to login as a user with a username and password
     """
-    success_url = '/'
+    success_url = '/profile/'
     template_name='login.html'
     form_class = AuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
@@ -60,6 +61,22 @@ class LoginView(FormView):
             redirect_to = self.success_url
         return redirect_to
 
+from django.views.generic import *
+from hitcount.views import HitCountDetailView
+
+class CompanyDetailView(HitCountDetailView):
+    model=Company
+    slug_field = 'pk'
+    slug_url_kwarg = 'pk'
+    queryset = Company.objects.filter()
+    context_object_name = 'company'
+    count_hit = True
+    template_name="company_detail.html"
+    
+
+
+
+
 
 class SignUpView(FormView):
     form_class = UserCreationForm
@@ -71,16 +88,49 @@ class SignUpView(FormView):
         raw_password = form.cleaned_data.get('password1')
         user = authenticate(username=username, password=raw_password)
         login(self.request, user)
-        return redirect('/')
+        return redirect('/accounts/createprofile/')
 
+class CreateProfileView(FormView):
+    form_class = ProfileForm
+    template_name = 'CreateProfile.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(CreateProfileView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    def form_valid(self, form):
+        print(form.cleaned_data.get('avatar'))
+        form.save()
+        return redirect('/profile/')
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def uploadimg(request):
+    print(request.POST)
+    return HttpResponse("aj")
 
 
 class LogOutView(LoginRequiredMixin, BaseLogoutView):
     template_name = 'logout.html'
 
-class comp(TemplateView):
-    template_name = 'main/hunt.html'
 
+
+
+class comp(TemplateView):
+    template_name = 'main/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        par_obj=UserProfile.objects.get(user=self.request.user)
+        print(par_obj)
+        # par2_obj=Participants.objects.all()
+
+        context['users'] = par_obj
+        context['show']=True
+
+
+        return context
 
 class IndexPageView(TemplateView):
     template_name = 'main/index.html'

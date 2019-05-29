@@ -59,21 +59,27 @@ hr {
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="container-fluid">
-  <h1 class="text-md-center">{{user.first_name}} {{user.last_name}}</h1>
+  <h1 class="text-md-center">{{user}} {{user.last_name}}</h1>
   <div class="container">
     <div class="row">
       <div class="container-fluid">
-<image src="/media/happyprofile.jpg" width="350px">
-  <div class="caption text-md-center"><em>Chief Executive Officer of Alphabet Inc.</em></div>
+
+
+<image src="/media/{{users.avatar}}" width="350px">
+  <div class="caption text-md-center"><em>{{users.job}}</em></div>
   </div>
      <hr>
- <!--CARDS start here-->
+
         <div class="card card-1 col-md-6 text-md-center" id="card1">
         <table class="table table-hover">
   <tbody>
     <tr>
-      <td><span class="bold">Title</span></td>
-      <td colspan="2">CEO of Alphabet Inc</td>
+      <td><span class="bold">Job</span></td>
+      <td colspan="2">{{users.job}}</td>
+    </tr>
+        <tr>
+      <td><span class="bold">Comapany</span></td>
+      <td colspan="2"><a href="/getcompanydetails/{{users.company.pk}}">{{users.company}}</a></td> 
     </tr>
 
   </tbody>
@@ -81,7 +87,7 @@ hr {
         </div>       
 
   </div>
+
          <hr>
 </div>	    
-
 {% endblock %}

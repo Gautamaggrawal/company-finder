@@ -13,7 +13,8 @@ from django.conf import settings
 from django.shortcuts import render, redirect,HttpResponse
 
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-
+from django.views.generic import *
+from hitcount.views import HitCountDetailView
 from django.utils.http import is_safe_url
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
@@ -61,8 +62,7 @@ class LoginView(FormView):
             redirect_to = self.success_url
         return redirect_to
 
-from django.views.generic import *
-from hitcount.views import HitCountDetailView
+
 
 class CompanyDetailView(HitCountDetailView):
     model=Company
@@ -72,7 +72,7 @@ class CompanyDetailView(HitCountDetailView):
     context_object_name = 'company'
     count_hit = True
     template_name="company_detail.html"
-    
+
 
 
 
@@ -103,6 +103,18 @@ class CreateProfileView(FormView):
         print(form.cleaned_data.get('avatar'))
         form.save()
         return redirect('/profile/')
+
+class CreateCompanyView(FormView):
+    form_class = Companyform
+    template_name = 'Createcompany.html'
+    success_url="/"
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponse('<script type="text/javascript">window.close()</script>')
+
+
+
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
@@ -137,7 +149,7 @@ class IndexPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        par_obj=User.objects.all()
+        par_obj=UserProfile.objects.all()
         print(par_obj)
         # par2_obj=Participants.objects.all()
 

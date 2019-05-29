@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Company(models.Model):
 	name=models.CharField(max_length=100)
-	logo=models.ImageField()
+	logo=models.ImageField(default='/company.jpg')
 	address=models.CharField(max_length=200)
 
 	def __str__(self):

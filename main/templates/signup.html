@@ -1,0 +1,27 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+    <h4>{% trans 'Create an account' %}</h4>
+	<div class="container" style="
+    border-style: solid;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: beige;
+    box-shadow: 10px 10px lightgray;
+    background: whitesmoke;
+">
+	    <form method="post">
+
+	        {% csrf_token %}
+	        {% bootstrap_form form %}
+
+	        <button class="btn btn-success">{% trans 'Create' %}</button>
+
+	    </form>
+	</div>
+{% endblock %}
+

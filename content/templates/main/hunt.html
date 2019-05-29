@@ -1,0 +1,87 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load i18n %}
+
+{% block content %}
+<style type="text/css">
+	.g{
+  color:#4285F4;
+}
+.o{
+  color:#EA4335;
+}
+.o1{
+  color:#FBBC05;
+}
+.l{
+  color:#34A853;
+}
+.e{
+  color:#EA4335;
+}
+body{
+   margin: 5px 5px 5px 5px;
+}
+
+.card-1 {
+  padding: 10px 10px 10px 10px;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+hr {
+     color: #f00;
+     background: #e0e0e0; 
+     width: 100%; 
+     height: 10%;
+     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+.bold{
+    font-family: Helvetica;
+    font-weight: bold;
+}
+.table-responsive>.table>tbody>tr>td{
+    horizontal-align: middle;
+}
+.card {
+  margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+}
+</style>
+
+    
+		
+<script>
+  $(document).ready(function(){
+    $("#card1").css("center-block")   
+});
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="container-fluid">
+  <h1 class="text-md-center">{{user.first_name}} {{user.last_name}}</h1>
+  <div class="container">
+    <div class="row">
+      <div class="container-fluid">
+<image src="/media/happyprofile.jpg" width="350px">
+  <div class="caption text-md-center"><em>Chief Executive Officer of Alphabet Inc.</em></div>
+  </div>
+     <hr>
+ <!--CARDS start here-->
+        <div class="card card-1 col-md-6 text-md-center" id="card1">
+        <table class="table table-hover">
+  <tbody>
+    <tr>
+      <td><span class="bold">Title</span></td>
+      <td colspan="2">CEO of Alphabet Inc</td>
+    </tr>
+
+  </tbody>
+</table>
+        </div>       
+
+  </div>
+         <hr>
+</div>	    
+
+{% endblock %}
